@@ -5,10 +5,18 @@ import './app/layout/style.css';
 import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
 import { store, StoreContext } from './app/stores/store';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HomePage from './features/home/homepage';
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>
-    <App />
+    <BrowserRouter>
+    <Routes>
+    <Route path='/' element={<HomePage />} ></Route>
+    <Route path='/*' element={<App/>}></Route>
+    </Routes>
+      
+    </BrowserRouter>
   </StoreContext.Provider>,
   document.getElementById('root')
 );
