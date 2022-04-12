@@ -1,9 +1,13 @@
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Button, Card, Image } from 'semantic-ui-react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { Grid } from 'semantic-ui-react';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { useStore } from '../../../app/stores/store';
+import ActivityDetaildChat from './ActivityDetaildChat';
+import ActivityDetaildInfo from './ActivityDetaildInfo';
+import ActivityDetaildSidebar from './ActivityDetaildSidebar';
+import ActivityDetaildHeader from './ActivityDetailedHeader';
 
 
 export default observer(function ActivityDetails() {
@@ -18,23 +22,15 @@ export default observer(function ActivityDetails() {
 
     if (loadingInitial || !activity) return (<LoadingComponent />);
     return (
-        <Card fluid>
-            <Image src={`/assets/categoryimages/${activity.category}.jpg`} />
-            <Card.Content>
-                <Card.Header>{activity.title}</Card.Header>
-                <Card.Meta>
-                    <span>{activity.date}</span>
-                </Card.Meta>
-                <Card.Description>
-                    {activity.description}
-                </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-                <Button.Group fluid>
-                    <Button as={Link} to={`/manage/${activity.id}`} basic color='blue' content='Edit' />
-                    <Button basic color='grey' content='Cancel' />
-                </Button.Group>
-            </Card.Content>
-        </Card>
+        <Grid>
+            <Grid.Column width={10}>
+                <ActivityDetaildHeader activity={activity}/>
+                <ActivityDetaildInfo activity={activity}/>
+                <ActivityDetaildChat />
+            </Grid.Column>
+            <Grid.Column width={6} >
+                <ActivityDetaildSidebar />
+            </Grid.Column>
+        </Grid>
     )
 })
